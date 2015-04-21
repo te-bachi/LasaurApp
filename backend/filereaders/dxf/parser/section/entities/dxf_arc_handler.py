@@ -2,13 +2,13 @@
 __author__ = 'Andreas Bachmann <andreas.bachmann@fablabwinti.ch>'
 
 
-class DXFHandler:
+class DXFEntitySectionHandler(DXFSectionHandler):
 
     def __init__(self):
         pass
 
-    def set_dxf_document(self, dxf_document):
+    def startEntity(self):
         pass
 
-    def parse_group(self, key, value):
+    def endEntity(self):
         pass

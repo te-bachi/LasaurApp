@@ -1,6 +1,6 @@
 
-
 __author__ = 'Andreas Bachmann <andreas.bachmann@fablabwinti.ch>'
+
 
 class DXFLayer:
     layers = 0
