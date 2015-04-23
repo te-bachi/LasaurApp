@@ -2,7 +2,7 @@
 __author__ = 'Andreas Bachmann <andreas.bachmann@fablabwinti.ch>'
 
 
-class DXFHandler:
+class DXFHandler(object):
 
     def __init__(self):
         pass
@@ -10,5 +10,5 @@ class DXFHandler:
     def setDXFDocument(self, dxfDocument):
         pass
 
-    def parseGroup(self, key, value):
+    def parseGroup(self, groupCode, value):
         pass

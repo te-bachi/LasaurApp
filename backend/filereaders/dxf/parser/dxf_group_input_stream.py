@@ -3,7 +3,9 @@ __author__ = 'Andreas Bachmann <andreas.bachmann@fablabwinti.ch>'
 
 import StringIO
 
-class DXFTuple:
+from filereaders.dxf.dxf_value import DXFValue
+
+class DXFGroupInputStream:
 
     def __init__(self, buf):
         self.stringio = StringIO.StringIO(buf)
@@ -13,14 +15,14 @@ class DXFTuple:
 
     def next(self):
 
-        key = self.stringio.readline()
-        if not key:
+        groupCode = self.stringio.readline()
+        if not groupCode:
             raise StopIteration
-        key = key.strip()
+        groupCode = int(groupCode.strip())
 
         value = self.stringio.readline()
         if not value:
             raise ValueError('Premature end of file!')
-        value = value.strip()
+        value = DXFValue(value.strip())
 
-        return key, value
+        return groupCode, value

@@ -4,9 +4,9 @@ __author__ = 'Andreas Bachmann <andreas.bachmann@fablabwinti.ch>'
 import dxf_section_handler
 
 
-class DXFTableSectionHandler(dxf_section_handler.DXFSectionHandler):
+class DXFObjectsSectionHandler(dxf_section_handler.DXFSectionHandler):
 
-    SECTION_VALUE = "TABLE"
+    SECTION_VALUE = "OBJECTS"
 
     def __init__(self):
         pass

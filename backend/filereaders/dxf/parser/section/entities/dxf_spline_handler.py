@@ -1,10 +1,12 @@
 
 __author__ = 'Andreas Bachmann <andreas.bachmann@fablabwinti.ch>'
 
-from backend.filereaders.dxf.parser.section.dxf_section_handler import DXFSectionHandler
+import dxf_entity_handler
 
 
-class DXFEntitySectionHandler(DXFSectionHandler):
+class DXFSplineHandler(dxf_entity_handler.DXFEntityHandler):
+
+    ENTITY_VALUE = "SPLINE"
 
     def __init__(self):
         pass
