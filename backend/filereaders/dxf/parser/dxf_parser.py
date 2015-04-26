@@ -22,7 +22,6 @@ class DXFParser(dxf_handler.DXFHandler):
     SECTION_END                 = "ENDSEC"
 
     def __init__(self):
-        from filereaders.dxf.dxf_constants                                  import DXFConstants
         from filereaders.dxf.parser.section.dxf_header_section_handler      import DXFHeaderSectionHandler
         from filereaders.dxf.parser.section.dxf_tables_section_handler      import DXFTablesSectionHandler
         from filereaders.dxf.parser.section.dxf_objects_section_handler     import DXFObjectsSectionHandler
@@ -36,18 +35,18 @@ class DXFParser(dxf_handler.DXFHandler):
 
         super(DXFParser, self).__init__()
 
-        handler = DXFEntitiesSectionHandler(DXFConstants.SECTION_TYPE_ENTITIES)
-        handler.addHandler(DXFArcHandler(DXFConstants.ENTITY_TYPE_ARC))
-        handler.addHandler(DXFCircleHandler(DXFConstants.ENTITY_TYPE_CIRCLE))
-        handler.addHandler(DXFLineHandler(DXFConstants.ENTITY_TYPE_LINE))
-        handler.addHandler(DXFPolylineHandler(DXFConstants.ENTITY_TYPE_POLYLINE))
-        handler.addHandler(DXFLwpolylineHandler(DXFConstants.ENTITY_TYPE_LWPOLYLINE))
-        handler.addHandler(DXFSplineHandler(DXFConstants.ENTITY_TYPE_SPLINE))
+        handler = DXFEntitiesSectionHandler()
+        handler.addHandler(DXFArcHandler())
+        handler.addHandler(DXFCircleHandler())
+        handler.addHandler(DXFLineHandler())
+        handler.addHandler(DXFPolylineHandler())
+        handler.addHandler(DXFLwpolylineHandler())
+        handler.addHandler(DXFSplineHandler())
 
         self.addHandler(handler)
-        self.addHandler(DXFHeaderSectionHandler(DXFConstants.SECTION_TYPE_HEADER))
-        self.addHandler(DXFObjectsSectionHandler(DXFConstants.SECTION_TYPE_OBJECTS))
-        self.addHandler(DXFTablesSectionHandler(DXFConstants.SECTION_TYPE_TABLES))
+        self.addHandler(DXFHeaderSectionHandler())
+        self.addHandler(DXFObjectsSectionHandler())
+        self.addHandler(DXFTablesSectionHandler())
 
         self.sectionStarts = False
 

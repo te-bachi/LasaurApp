@@ -22,8 +22,11 @@ class DXFPolylineHandler(dxf_entity_handler.DXFEntityHandler):
     GROUP_CODE_ROW_COUNT                        = 71
     GROUP_CODE_COLUMN_COUNT                     = 72
 
-    def __init__(self, name):
-        super(DXFPolylineHandler, self).__init__(name)
+    def __init__(self):
+        from filereaders.dxf.dxf_constants import DXFConstants
+
+        super(DXFPolylineHandler, self).__init__(DXFConstants.ENTITY_TYPE_POLYLINE)
+
         self.follow = False
         self.parseVertex = False
         self.polyline = None

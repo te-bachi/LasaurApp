@@ -6,8 +6,10 @@ import dxf_section_handler
 
 class DXFHeaderSectionHandler(dxf_section_handler.DXFSectionHandler):
 
-    def __init__(self, name):
-        super(DXFHeaderSectionHandler, self).__init__(name)
+    def __init__(self):
+        from filereaders.dxf.dxf_constants import DXFConstants
+
+        super(DXFHeaderSectionHandler, self).__init__(DXFConstants.SECTION_TYPE_HEADER)
 
     def startSection(self):
         pass

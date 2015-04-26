@@ -8,8 +8,10 @@ class DXFEntitiesSectionHandler(dxf_section_handler.DXFSectionHandler):
 
     GROUP_CODE_ENTITY_START         = 0         # LINE, CIRCLE, ARC, ...
 
-    def __init__(self, name):
-        super(DXFEntitiesSectionHandler, self).__init__(name)
+    def __init__(self):
+        from filereaders.dxf.dxf_constants import DXFConstants
+
+        super(DXFEntitiesSectionHandler, self).__init__(DXFConstants.SECTION_TYPE_ENTITIES)
 
     def startSection(self):
         pass
