@@ -11,7 +11,7 @@ class DXFArcHandler(dxf_entity_handler.DXFEntityHandler):
 
         super(DXFArcHandler, self).__init__(DXFConstants.ENTITY_TYPE_ARC)
 
-    def startEntity(self, value):
+    def startEntity(self):
         pass
 
     def endEntity(self):

@@ -4,12 +4,14 @@ __author__ = 'Andreas Bachmann <andreas.bachmann@fablabwinti.ch>'
 from dxf_header import DXFHeader
 from dxf_constants import DXFConstants
 
+
 class DXFDocument:
 
     def __init__(self):
+        from dxf_layer import DXFLayer
         self.header = DXFHeader()
         self.blocks = {}
-        self.layers = {}
+        self.layers = {DXFConstants.DEFAULT_LAYER: DXFLayer(DXFConstants.DEFAULT_LAYER)}
 
     def getHeader(self):
         return self.header
@@ -23,8 +25,12 @@ class DXFDocument:
         :param layerName:
         :type layerName: str
         :return:
+        :rtype: filereaders.dxf.dxf_layer.DXFLayer
         """
-        return self.layers[layerName]
+        try:
+            return self.layers[layerName]
+        except KeyError:
+            return self.layers[DXFConstants.DEFAULT_LAYER]
 
     def addLayer(self, layer):
         """
@@ -33,4 +39,14 @@ class DXFDocument:
         :type layer: filereaders.dxf.dxf_layer.DXFLayer
         """
         self.layers[layer.getName()] = layer
+
+    def addEntity(self, entity):
+        """
+
+        :param entity:
+        :type: layer: filereaders.dxf.dxf_entity.DXFEntity
+        """
+        layer = self.getLayer(entity.getLayerName())
+        layer.addEntity(entity)
+
 

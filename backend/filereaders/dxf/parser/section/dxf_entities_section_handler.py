@@ -26,7 +26,7 @@ class DXFEntitiesSectionHandler(dxf_section_handler.DXFSectionHandler):
                     self.handler.parseGroup(groupCode, value)
                     return
                 else:
-                    self.endEntity()
+                    self.handler.endEntity()
             try:
                 self.handler = self.handlers[value.getString()]
                 self.handler.setDocument(self.document)

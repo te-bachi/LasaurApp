@@ -4,12 +4,12 @@ __author__ = 'Andreas Bachmann <andreas.bachmann@fablabwinti.ch>'
 from filereaders.dxf.util.vector import Vector
 
 
-class DXFLayer:
-    layers = 0
-    viewports = 0
-    bounds = 0
-    margin = 0
-    header = 0
+class DXFLayer(object):
+    # layers = 0
+    # viewports = 0
+    # bounds = 0
+    # margin = 0
+    # header = 0
 
     def __init__(self, name = "", document = None):
         """
@@ -58,3 +58,11 @@ class DXFLayer:
         """
         return self.document
 
+    def addEntity(self, entity):
+        typeList = None
+        try:
+            typeList = self.entities[entity.getType()]
+            typeList.append(entity)
+        except KeyError:
+            typeList = [entity]
+            self.entities[entity.getType()] = typeList

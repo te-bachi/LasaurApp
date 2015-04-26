@@ -26,6 +26,14 @@ class DXFParser(dxf_handler.DXFHandler):
         from filereaders.dxf.parser.section.dxf_tables_section_handler      import DXFTablesSectionHandler
         from filereaders.dxf.parser.section.dxf_objects_section_handler     import DXFObjectsSectionHandler
         from filereaders.dxf.parser.section.dxf_entities_section_handler    import DXFEntitiesSectionHandler
+        from filereaders.dxf.parser.table.dxf_application_id_handler        import DXFApplicationIdHandler
+        from filereaders.dxf.parser.table.dxf_block_record_handler          import DXFBlockRecordHandler
+        from filereaders.dxf.parser.table.dxf_dimension_style_handler       import DXFDimensionStyleHandler
+        from filereaders.dxf.parser.table.dxf_layer_handler                 import DXFLayerHandler
+        from filereaders.dxf.parser.table.dxf_line_type_handler             import DXFLineTypeHandler
+        from filereaders.dxf.parser.table.dxf_ucs_handler                   import DXFUcsHandler
+        from filereaders.dxf.parser.table.dxf_view_handler                  import DXFViewHandler
+        from filereaders.dxf.parser.table.dxf_viewport_handler              import DXFViewportHandler
         from filereaders.dxf.parser.entities.dxf_arc_handler                import DXFArcHandler
         from filereaders.dxf.parser.entities.dxf_circle_handler             import DXFCircleHandler
         from filereaders.dxf.parser.entities.dxf_line_handler               import DXFLineHandler
@@ -35,6 +43,20 @@ class DXFParser(dxf_handler.DXFHandler):
 
         super(DXFParser, self).__init__()
 
+        self.addHandler(DXFHeaderSectionHandler())
+        self.addHandler(DXFObjectsSectionHandler())
+
+        handler = DXFTablesSectionHandler()
+        handler.addHandler(DXFApplicationIdHandler())
+        handler.addHandler(DXFBlockRecordHandler())
+        handler.addHandler(DXFDimensionStyleHandler())
+        handler.addHandler(DXFLayerHandler())
+        handler.addHandler(DXFLineTypeHandler())
+        handler.addHandler(DXFUcsHandler())
+        handler.addHandler(DXFViewHandler())
+        handler.addHandler(DXFViewportHandler())
+        self.addHandler(handler)
+
         handler = DXFEntitiesSectionHandler()
         handler.addHandler(DXFArcHandler())
         handler.addHandler(DXFCircleHandler())
@@ -42,11 +64,7 @@ class DXFParser(dxf_handler.DXFHandler):
         handler.addHandler(DXFPolylineHandler())
         handler.addHandler(DXFLwpolylineHandler())
         handler.addHandler(DXFSplineHandler())
-
         self.addHandler(handler)
-        self.addHandler(DXFHeaderSectionHandler())
-        self.addHandler(DXFObjectsSectionHandler())
-        self.addHandler(DXFTablesSectionHandler())
 
         self.sectionStarts = False
 

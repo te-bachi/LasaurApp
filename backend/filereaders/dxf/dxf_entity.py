@@ -1,6 +1,9 @@
 __author__ = 'Andreas Bachmann <andreas.bachmann@fablabwinti.ch>'
 
-class DXFEntity:
+from filereaders.dxf.dxf_constants import DXFConstants
+
+
+class DXFEntity(object):
 
     def __init__(self, id = "", document = None):
         """
@@ -11,6 +14,7 @@ class DXFEntity:
         :type document: filereaders.dxf.dxf_document.DXFDocument
         """
         self.id = id
+        self.type = ""
         self.document = document
         self.layerName = ""
         self.flags = 0
@@ -25,11 +29,17 @@ class DXFEntity:
     def setId(self, id):
         self.id = id
 
+    def getType(self):
+        return ""
+
     def setDocument(self, document):
         self.document = document
 
     def setLayerName(self, layerName):
         self.layerName = layerName
+
+    def getLayerName(self):
+        return self.layerName
 
     def setFlags(self, flags):
         self.flags = flags

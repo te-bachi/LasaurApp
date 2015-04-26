@@ -1,6 +1,8 @@
+
 __author__ = 'Andreas Bachmann <andreas.bachmann@fablabwinti.ch>'
 
 import filereaders.dxf.util.vector
+
 
 class DXFConstants:
 
@@ -52,3 +54,13 @@ class DXFConstants:
     ENTITY_TYPE_VERTEX          = "VERTEX"
     ENTITY_TYPE_VIEWPORT        = "VIEWPORT"
     ENTITY_TYPE_XLINE           = "XLINE"
+
+    TABLE_TYPE_APPLICATION_ID   = "APPID"
+    TABLE_TYPE_BLOCK_RECORD     = "BLOCK_RECORD"
+    TABLE_TYPE_DIMENSION_STYLE  = "DIMSTYLE"
+    TABLE_TYPE_LAYER            = "LAYER"
+    TABLE_TYPE_LINE_TYPE        = "LTYPE"
+    TABLE_TYPE_TEXT_STYLE       = "STYLE"
+    TABLE_TYPE_UCS              = "UCS"
+    TABLE_TYPE_VIEW             = "VIEW"
+    TABLE_TYPE_VIEWPORT         = "VPORT"

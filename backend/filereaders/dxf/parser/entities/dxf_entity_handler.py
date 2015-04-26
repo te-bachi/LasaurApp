@@ -39,11 +39,16 @@ class DXFEntityHandler(filereaders.dxf.parser.dxf_handler.DXFHandler):
     def __init__(self, name):
         super(DXFEntityHandler, self).__init__(name)
 
-    def startEntity(self):
+    def getEntity(self):
         pass
 
+    def startEntity(self):
+        self.parseIt = True
+
     def endEntity(self):
-        pass
+        if self.parseIt:
+            self.document.addEntity(self.getEntity())
+
 
     def hasFollowingSequence(self):
         """

@@ -33,22 +33,23 @@ class DXFPolylineHandler(dxf_entity_handler.DXFEntityHandler):
         self.vertex = None
         self.followingSequence = True
 
+    def getEntity(self):
+        return self.polyline
+
     def startEntity(self):
+        super(DXFPolylineHandler, self).startEntity()
         self.follow = False
         self.parseVertex = False
         self.polyline = DXFPolyline()
         self.vertex = None
         self.followingSequence = True
 
-    def endEntity(self):
-        pass
-
     def hasFollowingSequence(self):
         return self.followingSequence
 
     def parseGroup(self, groupCode, value):
         if groupCode == self.GROUP_CODE_ENTITY_START:
-            if value == self.ENTITY_VERTEX:
+            if value.getString() == self.ENTITY_VERTEX:
                 # store the old vertex before
                 if self.parseVertex:
                     self.polyline.addVertex(self.vertex)
@@ -57,7 +58,8 @@ class DXFPolylineHandler(dxf_entity_handler.DXFEntityHandler):
 
                 self.vertex = DXFVertex()
 
-            elif value == self.ENTITY_SEQUENCE:
+            elif value.getString() == self.ENTITY_SEQUENCE:
+                self.polyline.addVertex(self.vertex)
                 self.followingSequence = False
 
         elif groupCode == self.GROUP_CODE_START_X:
