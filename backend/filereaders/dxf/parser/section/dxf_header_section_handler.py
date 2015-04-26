@@ -6,9 +6,13 @@ import dxf_section_handler
 
 class DXFHeaderSectionHandler(dxf_section_handler.DXFSectionHandler):
 
-    SECTION_VALUE = "HEADER"
+    def __init__(self, name):
+        super(DXFHeaderSectionHandler, self).__init__(name)
 
-    def __init__(self):
+    def startSection(self):
+        pass
+
+    def endSection(self):
         pass
 
     def parseGroup(self, groupCode, value):

@@ -1,17 +1,15 @@
 
 __author__ = 'Andreas Bachmann <andreas.bachmann@fablabwinti.ch>'
 
-import dxf_entity_handler
+from filereaders.dxf.parser.entities import dxf_entity_handler
 
-from filereaders.dxf.dxf_value import DXFValue
 from filereaders.dxf.dxf_polyline import DXFPolyline
 from filereaders.dxf.dxf_vertex import DXFVertex
 
 class DXFPolylineHandler(dxf_entity_handler.DXFEntityHandler):
 
-    ENTITY_VALUE                                = "POLYLINE"
     ENTITY_VERTEX                               = "VERTEX"
-    END_SEQUENCE                                = "SEQEND"
+    ENTITY_SEQUENCE                             = "SEQEND"
 
     GROUP_CODE_END_SEQUENCE_CODE                = -2
     GROUP_CODE_VERTEX_BULGE                     = 42
@@ -24,20 +22,26 @@ class DXFPolylineHandler(dxf_entity_handler.DXFEntityHandler):
     GROUP_CODE_ROW_COUNT                        = 71
     GROUP_CODE_COLUMN_COUNT                     = 72
 
-    def __init__(self):
+    def __init__(self, name):
+        super(DXFPolylineHandler, self).__init__(name)
         self.follow = False
         self.parseVertex = False
         self.polyline = None
         self.vertex = None
+        self.followingSequence = True
 
     def startEntity(self):
         self.follow = False
         self.parseVertex = False
-        self.polyline = None
+        self.polyline = DXFPolyline()
         self.vertex = None
+        self.followingSequence = True
 
     def endEntity(self):
         pass
+
+    def hasFollowingSequence(self):
+        return self.followingSequence
 
     def parseGroup(self, groupCode, value):
         if groupCode == self.GROUP_CODE_ENTITY_START:
@@ -49,6 +53,9 @@ class DXFPolylineHandler(dxf_entity_handler.DXFEntityHandler):
                     self.parseVertex = True
 
                 self.vertex = DXFVertex()
+
+            elif value == self.ENTITY_SEQUENCE:
+                self.followingSequence = False
 
         elif groupCode == self.GROUP_CODE_START_X:
             if self.parseVertex:

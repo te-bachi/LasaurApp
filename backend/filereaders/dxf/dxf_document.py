@@ -2,28 +2,35 @@
 __author__ = 'Andreas Bachmann <andreas.bachmann@fablabwinti.ch>'
 
 from dxf_header import DXFHeader
-
+from dxf_constants import DXFConstants
 
 class DXFDocument:
-    layers = 0
-    viewports = 0
-    bounds = 0
-    margin = 0
 
     def __init__(self):
         self.header = DXFHeader()
-        self.tables = ()
-        self.blocks = ()
-        self.entities = ()
+        self.blocks = {}
+        self.layers = {}
 
     def getHeader(self):
         return self.header
 
-    def getTables(self):
-        return self.tables
+    def getBlock(self, blockName):
+        return self.blocks[blockName]
 
-    def getBlocks(self):
-        return self.blocks
+    def getLayer(self, layerName):
+        """
 
-    def getEntities(self):
-        return self.entities
+        :param layerName:
+        :type layerName: str
+        :return:
+        """
+        return self.layers[layerName]
+
+    def addLayer(self, layer):
+        """
+
+        :param layer:
+        :type layer: filereaders.dxf.dxf_layer.DXFLayer
+        """
+        self.layers[layer.getName()] = layer
+

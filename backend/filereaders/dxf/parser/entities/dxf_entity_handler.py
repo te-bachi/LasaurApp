@@ -1,9 +1,9 @@
 
 __author__ = 'Andreas Bachmann <andreas.bachmann@fablabwinti.ch>'
 
-import filereaders.dxf.parser.section.dxf_section_handler
+import filereaders.dxf.parser.dxf_handler
 
-class DXFEntityHandler(filereaders.dxf.parser.section.dxf_section_handler.DXFSectionHandler):
+class DXFEntityHandler(filereaders.dxf.parser.dxf_handler.DXFHandler):
 
     GROUP_CODE_ENTITY_START         = 0         # LINE, CIRCLE, ARC, ...
     GROUP_CODE_ELEMENT_REFERENCE    = 5
@@ -36,50 +36,34 @@ class DXFEntityHandler(filereaders.dxf.parser.section.dxf_section_handler.DXFSec
     GROUP_CODE_ROTATION_ANGLE       = 50
     GROUP_CODE_MODELSPACE           = 67
 
-    def __init__(self):
-        from dxf_arc_handler import DXFArcHandler
-        from dxf_circle_handler import DXFCircleHandler
-        from dxf_line_handler import DXFLineHandler
-        from dxf_polyline_handler import DXFPolylineHandler
-        from dxf_lwpolyline_handler import DXFLwpolylineHandler
-        from dxf_spline_handler import DXFSplineHandler
+    def __init__(self, name):
+        super(DXFEntityHandler, self).__init__(name)
 
-        self.entityHandler = None
-        self.map = {
-            DXFArcHandler.ENTITY_VALUE:         DXFArcHandler(),
-            DXFCircleHandler.ENTITY_VALUE:      DXFCircleHandler(),
-            DXFLineHandler.ENTITY_VALUE:        DXFLineHandler(),
-            DXFPolylineHandler.ENTITY_VALUE:    DXFPolylineHandler(),
-            DXFLwpolylineHandler.ENTITY_VALUE:  DXFLwpolylineHandler(),
-            DXFSplineHandler.ENTITY_VALUE:      DXFSplineHandler()
-        }
-
-    def startEntity(self, value):
-        try:
-            self.entityHandler = self.map[value]
-        except KeyError:
-            pass
+    def startEntity(self):
+        pass
 
     def endEntity(self):
-        self.entityHandler = None
+        pass
 
-    def parseGroup(self, groupCode, value):
-        if  groupCode == self.GROUP_CODE_ENTITY_START and not self.entityHandler:
-            self.startEntity(value)
+    def hasFollowingSequence(self):
+        """
+        :return: return true if the this DXFEntityHandler have to parse the following
+                 entities (like POLYLINE), otherwise false (like TEXT,LINE).
+        :rtype: Bool
+        """
+        return False
 
-        elif self.entityHandler:
-            self.entityHandler.parseGroup(groupCode, value)
 
     def parseCommonProperty(self, groupCode, value, entity):
         if groupCode == self.GROUP_CODE_ELEMENT_REFERENCE:
             entity.setId(value.getString())
 
-        if groupCode == self.GROUP_CODE_SOFT_POINTER:
-            #entity.set...(value.getValue())
+        elif groupCode == self.GROUP_CODE_SOFT_POINTER:
+            #entity.set...(value.getString())
             pass
 
         elif groupCode == self.GROUP_CODE_LAYER_NAME:
-            entity.setLayerName(value.getValue())
+            entity.setLayerName(value.getString())
 
         elif groupCode == self.GROUP_CODE_FLAGS:
             entity.setFlags(value.getIntegerValue())
@@ -88,7 +72,7 @@ class DXFEntityHandler(filereaders.dxf.parser.section.dxf_section_handler.DXFSec
             entity.setVisibile(not value.getBooleanValue())
 
         elif groupCode == self.GROUP_CODE_LINE_TYPE:
-            entity.setLineType(value.getValue())
+            entity.setLineType(value.getString())
 
         elif groupCode == self.GROUP_CODE_LINE_TYPE_SCALE:
             entity.setLineTypeScaleFactor(value.getDoubleValue())

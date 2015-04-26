@@ -2,8 +2,16 @@ __author__ = 'Andreas Bachmann <andreas.bachmann@fablabwinti.ch>'
 
 class DXFEntity:
 
-    def __init__(self):
-        self.id = ""
+    def __init__(self, id = "", document = None):
+        """
+
+        :param id:
+        :param document:
+        :type id: str
+        :type document: filereaders.dxf.dxf_document.DXFDocument
+        """
+        self.id = id
+        self.document = document
         self.layerName = ""
         self.flags = 0
         self.visibility = True
@@ -16,6 +24,9 @@ class DXFEntity:
 
     def setId(self, id):
         self.id = id
+
+    def setDocument(self, document):
+        self.document = document
 
     def setLayerName(self, layerName):
         self.layerName = layerName

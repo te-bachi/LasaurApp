@@ -15,3 +15,6 @@ class DXFValue:
 
     def getString(self):
         return self.value
+
+    def __repr__(self):
+        return self.value

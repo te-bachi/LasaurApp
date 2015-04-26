@@ -1,15 +1,13 @@
 
 __author__ = 'Andreas Bachmann <andreas.bachmann@fablabwinti.ch>'
 
-import dxf_entity_handler
+from filereaders.dxf.parser.entities import dxf_entity_handler
 
 
 class DXFArcHandler(dxf_entity_handler.DXFEntityHandler):
 
-    ENTITY_VALUE = "ARC"
-
-    def __init__(self):
-        pass
+    def __init__(self, name):
+        super(DXFArcHandler, self).__init__(name)
 
     def startEntity(self, value):
         pass

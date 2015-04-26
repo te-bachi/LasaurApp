@@ -5,7 +5,7 @@ import StringIO
 
 from filereaders.dxf.dxf_value import DXFValue
 
-class DXFGroupInputStream:
+class DXFGroupBuffer:
 
     def __init__(self, buf):
         self.stringio = StringIO.StringIO(buf)
@@ -14,7 +14,13 @@ class DXFGroupInputStream:
         return self
 
     def next(self):
+        """
 
+        :return: a group code and the according value
+        :rtype: :func:`list`
+        :raises StopIteration: if the iterator is at the end of the buffer
+        :raises ValueError: if the buffer ends abruptly/unexpected
+        """
         groupCode = self.stringio.readline()
         if not groupCode:
             raise StopIteration

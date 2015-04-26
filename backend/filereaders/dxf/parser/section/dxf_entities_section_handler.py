@@ -6,20 +6,34 @@ import dxf_section_handler
 
 class DXFEntitiesSectionHandler(dxf_section_handler.DXFSectionHandler):
 
-    SECTION_VALUE = "ENTITIES"
+    GROUP_CODE_ENTITY_START         = 0         # LINE, CIRCLE, ARC, ...
 
-    def __init__(self):
-        from entities.dxf_entity_handler import DXFEntityHandler
+    def __init__(self, name):
+        super(DXFEntitiesSectionHandler, self).__init__(name)
 
-        self.entity = DXFEntityHandler()
-
-    def startEntitySection(self):
+    def startSection(self):
         pass
 
-    def endEntitySection(self):
+    def endSection(self):
         pass
 
     def parseGroup(self, groupCode, value):
-        self.entity.parseGroup(groupCode, value)
+        if  groupCode == self.GROUP_CODE_ENTITY_START:
+            if self.parseIt:
+                if self.handler.hasFollowingSequence():
+                    self.handler.parseGroup(groupCode, value)
+                    return
+                else:
+                    self.endEntity()
+            try:
+                self.handler = self.handlers[value.getString()]
+                self.handler.setDocument(self.document)
+                self.handler.startEntity()
+                self.parseIt = True
+            except KeyError:
+                self.parseIt = False
+
+        elif self.parseIt:
+            self.handler.parseGroup(groupCode, value)
 
 
