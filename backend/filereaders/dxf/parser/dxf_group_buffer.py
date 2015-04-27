@@ -24,7 +24,10 @@ class DXFGroupBuffer:
         groupCode = self.stringio.readline()
         if not groupCode:
             raise StopIteration
-        groupCode = int(groupCode.strip())
+        try:
+            groupCode = int(groupCode.strip())
+        except ValueError:
+            pass
 
         value = self.stringio.readline()
         if not value:

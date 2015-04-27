@@ -14,6 +14,12 @@ class DXFTableHandler(filereaders.dxf.parser.dxf_handler.DXFHandler):
         pass
 
     def endTable(self):
+        self.parseIt = False
+
+    def startRow(self):
+        pass
+
+    def endRow(self):
         pass
 
     def parseGroup(self, groupCode, value):

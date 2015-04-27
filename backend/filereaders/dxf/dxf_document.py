@@ -38,7 +38,11 @@ class DXFDocument:
         :param layer:
         :type layer: filereaders.dxf.dxf_layer.DXFLayer
         """
-        self.layers[layer.getName()] = layer
+        try:
+            # don't overwrite layers with the same name
+            tmp = self.layers[layer.getName()]
+        except KeyError:
+            self.layers[layer.getName()] = layer
 
     def addEntity(self, entity):
         """

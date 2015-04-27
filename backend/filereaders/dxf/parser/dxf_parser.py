@@ -20,6 +20,7 @@ class DXFParser(dxf_handler.DXFHandler):
     GROUP_CODE_NAME             = 2
     SECTION_START               = "SECTION"
     SECTION_END                 = "ENDSEC"
+    EOF                         = "EOF"
 
     def __init__(self):
         from filereaders.dxf.parser.section.dxf_header_section_handler      import DXFHeaderSectionHandler
@@ -82,7 +83,8 @@ class DXFParser(dxf_handler.DXFHandler):
 
         for groupCode, value in groupBuffer:
             linecount += 1
-            self.parseGroup(groupCode, value)
+            if not self.parseGroup(groupCode, value):
+                break
 
         print("Done")
 
@@ -93,7 +95,10 @@ class DXFParser(dxf_handler.DXFHandler):
         :type  groupCode: int
         :type  value: filereaders.dxf.dxf_value.DXFValue
         """
-        if groupCode == self.GROUP_CODE_ENTITY_START and value.getString() == self.SECTION_START:
+        if groupCode == self.GROUP_CODE_ENTITY_START and value.getString() == self.EOF:
+            return False
+
+        elif groupCode == self.GROUP_CODE_ENTITY_START and value.getString() == self.SECTION_START:
             self.sectionStarts = True
 
         elif groupCode == self.GROUP_CODE_ENTITY_START and value.getString() == self.SECTION_END:
@@ -116,3 +121,4 @@ class DXFParser(dxf_handler.DXFHandler):
             #except AttributeError:
             #    raise AttributeError()
 
+        return True

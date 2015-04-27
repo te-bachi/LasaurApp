@@ -21,8 +21,10 @@ class DXFLayer(object):
         """
         self.name = name
         self.document = document
+        self.reference = ""
         self.entities = {}
         self.color = 0
+        self.lineType = ""
         self.lineWeight = 0
         self.plotStyle = ""
 
@@ -66,3 +68,34 @@ class DXFLayer(object):
         except KeyError:
             typeList = [entity]
             self.entities[entity.getType()] = typeList
+
+    def setReference(self, reference):
+        self.reference = reference
+
+    def getReference(self):
+        return self.reference
+
+    def setColor(self, color):
+        self.color = color
+
+    def getColor(self):
+        return self.color
+
+    def setLineType(self, lineType):
+        self.lineType = lineType
+
+    def getLineType(self):
+        return self.lineType
+
+    def setLineWeight(self, lineWeight):
+        self.lineWeight = lineWeight
+
+    def getLineWeight(self):
+        return self.lineWeight
+
+    def setPlotStyle(self, plotStyle):
+        self.plotStyle = plotStyle
+
+    def getPlotStyle(self):
+        return self.plotStyle
+
