@@ -1,3 +1,4 @@
+
 __author__ = 'Andreas Bachmann <andreas.bachmann@fablabwinti.ch>'
 
 import dxf_entity
@@ -21,5 +22,5 @@ class DXFPolyline(dxf_entity.DXFEntity):
     def setStartWidh(self, startWidth):
         self.startWidth = startWidth
 
-    def endWidth(self, endWidth):
+    def setEndWidth(self, endWidth):
         self.endWidth = endWidth

@@ -5,7 +5,7 @@ import dxf_entity
 import dxf_constants
 
 
-class DXFSpline(dxf_entity.DXFEntiy):
+class DXFSpline(dxf_entity.DXFEntity):
 
     def __init__(self):
         super(DXFSpline, self).__init__()

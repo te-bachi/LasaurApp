@@ -5,7 +5,7 @@ import dxf_entity
 import dxf_constants
 
 
-class DXFLwpolyline(dxf_entity.DXFEntiy):
+class DXFLwpolyline(dxf_entity.DXFEntity):
 
     def __init__(self):
         super(DXFLwpolyline, self).__init__()

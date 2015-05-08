@@ -9,7 +9,7 @@ from filereaders.dxf.dxf_vertex import DXFVertex
 class DXFPolylineHandler(dxf_entity_handler.DXFEntityHandler):
 
     ENTITY_VERTEX                               = "VERTEX"
-    ENTITY_SEQUENCE                             = "SEQEND"
+    ENTITY_SEQUENCE_END                         = "SEQEND"
 
     GROUP_CODE_END_SEQUENCE_CODE                = -2
     GROUP_CODE_VERTEX_BULGE                     = 42
@@ -58,7 +58,7 @@ class DXFPolylineHandler(dxf_entity_handler.DXFEntityHandler):
 
                 self.vertex = DXFVertex()
 
-            elif value.getString() == self.ENTITY_SEQUENCE:
+            elif value.getString() == self.ENTITY_SEQUENCE_END:
                 self.polyline.addVertex(self.vertex)
                 self.followingSequence = False
 

@@ -71,7 +71,7 @@ class DXFEntityHandler(filereaders.dxf.parser.dxf_handler.DXFHandler):
             entity.setLayerName(value.getString())
 
         elif groupCode == self.GROUP_CODE_FLAGS:
-            entity.setFlags(value.getIntegerValue())
+            entity.setFlags(value.getInt())
 
         elif groupCode == self.GROUP_CODE_VISIBILITY:
             entity.setVisibile(not value.getBooleanValue())
@@ -80,19 +80,19 @@ class DXFEntityHandler(filereaders.dxf.parser.dxf_handler.DXFHandler):
             entity.setLineType(value.getString())
 
         elif groupCode == self.GROUP_CODE_LINE_TYPE_SCALE:
-            entity.setLineTypeScaleFactor(value.getDoubleValue())
+            entity.setLineTypeScaleFactor(value.getDouble())
 
         elif groupCode == self.GROUP_CODE_COLOR_CODE:
-            entity.setColor(value.getIntegerValue())
+            entity.setColor(value.getInt())
 
         elif groupCode == self.GROUP_CODE_EXTRUSION_X:
-            entity.setExtrusionX(value.getDoubleValue())
+            entity.setExtrusionX(value.getDouble())
 
         elif groupCode == self.GROUP_CODE_EXTRUSION_Y:
-            entity.setExtrusionY(value.getDoubleValue())
+            entity.setExtrusionY(value.getDouble())
 
         elif groupCode == self.GROUP_CODE_EXTRUSION_Z:
-            entity.setExtrusionZ(value.getDoubleValue())
+            entity.setExtrusionZ(value.getDouble())
 
         elif groupCode == self.GROUP_CODE_COLOR_24BIT:
             pass
@@ -101,12 +101,13 @@ class DXFEntityHandler(filereaders.dxf.parser.dxf_handler.DXFHandler):
             pass
 
         elif groupCode == self.GROUP_CODE_LINE_WEIGHT:
-            entity.setLineWeight(value.getIntegerValue())
+            entity.setLineWeight(value.getInt())
 
         elif groupCode == self.GROUP_CODE_THICKNESS:
-            entity.setThickness(value.getDoubleValue())
+            entity.setThickness(value.getDouble())
 
         elif groupCode == self.GROUP_CODE_MODELSPACE:
-            entity.setModelSpace(value.getBooleanValue())
+            #entity.setModelSpace(value.getBooleanValue())
+            pass
 
 

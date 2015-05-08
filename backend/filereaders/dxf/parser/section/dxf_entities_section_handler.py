@@ -17,7 +17,8 @@ class DXFEntitiesSectionHandler(dxf_section_handler.DXFSectionHandler):
         pass
 
     def endSection(self):
-        pass
+        if self.parseIt:
+            self.handler.endEntity()
 
     def parseGroup(self, groupCode, value):
         if  groupCode == self.GROUP_CODE_ENTITY_START:

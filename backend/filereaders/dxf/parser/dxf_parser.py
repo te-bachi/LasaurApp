@@ -102,6 +102,8 @@ class DXFParser(dxf_handler.DXFHandler):
             self.sectionStarts = True
 
         elif groupCode == self.GROUP_CODE_ENTITY_START and value.getString() == self.SECTION_END:
+            if self.parseIt:
+                self.handler.endSection()
             self.handler = None
             self.parseIt = False
 
