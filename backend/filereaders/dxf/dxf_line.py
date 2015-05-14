@@ -28,3 +28,6 @@ class DXFLine(dxf_entity.DXFEntity):
         return "startPoint = [ " + str(self.startPoint.getX()) + ", " + str(self.startPoint.getY()) + ", " + str(self.startPoint.getZ()) + \
                " ], endPoint = [ " + str(self.endPoint.getX()) + ", " + str(self.endPoint.getY()) + ", " + str(self.endPoint.getZ()) + " ]"
 
+    def rasterize(self):
+        return [[self.startPoint.getX(), self.startPoint.getY()],
+                [self.endPoint.getX(),   self.endPoint.getY()]]

@@ -13,17 +13,30 @@ class DXFVertex(dxf_point.DXFPoint):
         self.x = 0
         self.y = 0
         self.z = 0
+        self.bulge = 0.0
         self.startWidth = 0.0
         self.endWidth = 0.0
 
     def setX(self, x):
         self.x = x
 
+    def getX(self):
+        return self.x
+
     def setY(self, y):
         self.y = y
 
+    def getY(self):
+        return self.y
+
     def setZ(self, z):
         self.z = z
+
+    def getZ(self):
+        return self.z
+
+    def setBulge(self, bulge):
+        self.bulge = bulge
 
     def setStartWidth(self, startWidth):
         self.startWidth = startWidth
@@ -42,4 +55,7 @@ class DXFVertex(dxf_point.DXFPoint):
 
     def setPolyFaceMeshVertex3(self, mesh3):
         pass
+
+    def __repr__(self):
+        return "vertex = [ " + str(self.getX()) + ", " + str(self.getY()) + ", " + str(self.getZ()) + " ]"
 

@@ -2,18 +2,11 @@
 __author__ = 'Andreas Bachmann <andreas.bachmann@fablabwinti.ch>'
 
 import dxf_handler
+import logging
 
-#
-#    0 -    9   String
-#   10 -   39   Double precision 3D point value
-#   40 -   59   Double-precision floating-point value
-#   60 -   79   16-bit integer value
-#   90 -   99   32-bit integer value
-#  100          String
-# 102           String
-# 105           String
-# 110-119       Double precision floating-point value
-#
+
+log = logging.getLogger(__name__)
+
 class DXFParser(dxf_handler.DXFHandler):
 
     GROUP_CODE_ENTITY_START     = 0
@@ -86,7 +79,20 @@ class DXFParser(dxf_handler.DXFHandler):
             if not self.parseGroup(groupCode, value):
                 break
 
-        print("Done")
+        log.info("Parse Done")
+
+        list = []
+        for layerName, layer in document.layers.iteritems():
+            for entityName, entityList in layer.entities.iteritems():
+                for entity in entityList:
+                    try:
+                        list.extend(entity.rasterize())
+                    except NotImplementedError:
+                        pass
+
+        log.info("Rasterize Done")
+
+        return list
 
 
 

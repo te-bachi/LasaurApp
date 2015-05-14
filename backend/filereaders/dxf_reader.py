@@ -1,20 +1,19 @@
-# Adapted from dxf2svg.py by David S. Touretzky
-# Computer Science Department, Carnegie Mellon University
-# Released under the GNU GPL3 license.
 
-
-__author__ = 'David S. Touretzky, Stefan Hechenberger <stefan@nortd.com>'
+__author__ = 'David S. Touretzky, Stefan Hechenberger <stefan@nortd.com>, Kevin Loney <kevin.loney@brainsinjars.com>, Andreas Bachmann <andreas.bachmann@fablabwinti.ch>'
 
 
 import math
 import StringIO
 import logging
+import filereaders.dxf.parser.dxf_parser
 
 
 logging.basicConfig()
 log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)
 
+
+parser = filereaders.dxf.parser.dxf_parser.DXFParser()
 
 class DXFReader:
     """Parse very simple DXF files with lines, arcs, and lwpolyline.
@@ -78,14 +77,19 @@ class DXFReader:
         #
         # return {'boundarys':self.boundarys}
 
-        l = []
-        l.append([  50,   50])
-        l.append([1000,   50])
-        l.append([1000,  400])
-        l.append([  50,  400])
-        l.append([  50,   50])
+        #l = []
+        #l.append([  50,   50])
+        #l.append([1000,   50])
+        #l.append([1000,  400])
+        #l.append([  50,  400])
+        #l.append([  50,   50])
 
-        d = {'#000000': [l]}
+        #d = {'#000000': [l]}
+        #return {'boundarys': d}
+
+        l = parser.parse(dxfstring)
+
+        d = {'#000000': l}
         return {'boundarys': d}
 
     ################

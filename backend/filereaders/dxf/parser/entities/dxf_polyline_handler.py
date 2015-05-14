@@ -84,13 +84,13 @@ class DXFPolylineHandler(dxf_entity_handler.DXFEntityHandler):
             if self.parseVertex:
                 self.vertex.setEndWidth(value.getDouble())
             else:
-                self.polyline.setEndWidh(value.getDouble())
+                self.polyline.setEndWidth(value.getDouble())
 
         elif groupCode == self.GROUP_CODE_THICKNESS:
             self.polyline.setThickness(value.getDouble())
 
         elif groupCode == self.GROUP_CODE_SURFACE_TYPE:
-            self.polyline.setSurefaceType(value.getInt())
+            self.polyline.setSurfaceType(value.getInt())
 
         elif groupCode == self.GROUP_CODE_ROW_COUNT:
             if self.parseVertex:
@@ -108,13 +108,13 @@ class DXFPolylineHandler(dxf_entity_handler.DXFEntityHandler):
             if self.parseVertex:
                 self.vertex.setPolyFaceMeshVertex2(value.getInt())
             else:
-                self.polyline.setSurefaceDensityRows(value.getInt())
+                self.polyline.setSurfaceDensityRows(value.getInt())
 
         elif groupCode == self.GROUP_CODE_SUREFACE_DENSITY_COLUMN_COUNT:
             if self.parseVertex:
                 self.vertex.setPolyFaceMeshVertex3(value.getInt())
             else:
-                self.polyline.setSurefaceDensityColumns(value.getInt())
+                self.polyline.setSurfaceDensityColumns(value.getInt())
 
         else:
             if self.parseVertex:

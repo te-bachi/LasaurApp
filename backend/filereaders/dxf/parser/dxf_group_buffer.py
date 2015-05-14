@@ -2,8 +2,12 @@
 __author__ = 'Andreas Bachmann <andreas.bachmann@fablabwinti.ch>'
 
 import StringIO
+import logging
 
 from filereaders.dxf.dxf_value import DXFValue
+
+
+log = logging.getLogger(__name__)
 
 class DXFGroupBuffer:
 
@@ -34,4 +38,5 @@ class DXFGroupBuffer:
             raise ValueError('Premature end of file!')
         value = DXFValue(value.strip())
 
+        log.debug("%-3i : %s", groupCode, value)
         return groupCode, value

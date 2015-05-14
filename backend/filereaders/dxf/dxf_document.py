@@ -1,6 +1,7 @@
 
 __author__ = 'Andreas Bachmann <andreas.bachmann@fablabwinti.ch>'
 
+from logging import Logger
 from dxf_header import DXFHeader
 from dxf_constants import DXFConstants
 
