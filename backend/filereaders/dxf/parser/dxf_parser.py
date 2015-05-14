@@ -86,7 +86,7 @@ class DXFParser(dxf_handler.DXFHandler):
             for entityName, entityList in layer.entities.iteritems():
                 for entity in entityList:
                     try:
-                        list.extend(entity.rasterize())
+                        list.append(entity.rasterize())
                     except NotImplementedError:
                         pass
 

@@ -38,7 +38,7 @@ class DXFLwpolyline(dxf_entity.DXFEntity):
                 first = False
                 tmp = vertex
             else:
-                l.append([[tmp.getX(), tmp.getY()], [vertex.getX(), vertex.getY()]])
+                l.extend([[tmp.getX(), tmp.getY()], [vertex.getX(), vertex.getY()]])
                 tmp = vertex
 
         return l

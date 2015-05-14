@@ -24,8 +24,8 @@ def read_svg(svg_string, target_size, tolerance, forced_dpi=None, optimize=True)
 def read_dxf(dxf_string, tolerance, optimize=True):
     dxfReader = DXFReader(tolerance)
     parse_results = dxfReader.parse(dxf_string)
-    if optimize:
-        optimize_all(parse_results['boundarys'], tolerance)
+    #if optimize:
+    #    optimize_all(parse_results['boundarys'], tolerance)
     # flip y-axis
     min_x = None
     min_y = None
