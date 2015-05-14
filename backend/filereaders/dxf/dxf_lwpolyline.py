@@ -29,8 +29,8 @@ class DXFLwpolyline(dxf_entity.DXFEntity):
     def setThickness(self, thickness):
         self.thickness = thickness
 
-    def rasterize(self):
-        l = []
+    def rasterize(self, tolerance):
+        path = []
         tmp = None
         first = True
         for vertex in self.vertices:
@@ -38,7 +38,7 @@ class DXFLwpolyline(dxf_entity.DXFEntity):
                 first = False
                 tmp = vertex
             else:
-                l.extend([[tmp.getX(), tmp.getY()], [vertex.getX(), vertex.getY()]])
+                path.extend([[tmp.getX(), tmp.getY()], [vertex.getX(), vertex.getY()]])
                 tmp = vertex
 
-        return l
+        return path

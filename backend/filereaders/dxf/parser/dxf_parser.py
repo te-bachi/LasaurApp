@@ -63,7 +63,7 @@ class DXFParser(dxf_handler.DXFHandler):
         self.sectionStarts = False
 
 
-    def parse(self, dxfstring):
+    def parse(self, dxfstring, tolerance):
         from dxf_group_buffer import DXFGroupBuffer
         from filereaders.dxf.dxf_document import DXFDocument
 
@@ -81,18 +81,18 @@ class DXFParser(dxf_handler.DXFHandler):
 
         log.info("Parse Done")
 
-        list = []
+        path = []
         for layerName, layer in document.layers.iteritems():
             for entityName, entityList in layer.entities.iteritems():
-                for entity in entityList:
-                    try:
-                        list.append(entity.rasterize())
-                    except NotImplementedError:
-                        pass
+                try:
+                    for entity in entityList:
+                        path.append(entity.rasterize(tolerance))
+                except NotImplementedError:
+                    pass
 
         log.info("Rasterize Done")
 
-        return list
+        return path
 
 
 

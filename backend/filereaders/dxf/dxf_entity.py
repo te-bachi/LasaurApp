@@ -74,5 +74,5 @@ class DXFEntity(object):
     def setModelSpace(self, modelSpace):
         self.modelSpace = modelSpace
 
-    def rasterize(self):
+    def rasterize(self, tolerance):
         raise NotImplementedError()

@@ -87,7 +87,7 @@ class DXFReader:
         #d = {'#000000': [l]}
         #return {'boundarys': d}
 
-        l = parser.parse(dxfstring)
+        l = parser.parse(dxfstring, self.tolerance)
 
         d = {'#000000': l}
         return {'boundarys': d}
