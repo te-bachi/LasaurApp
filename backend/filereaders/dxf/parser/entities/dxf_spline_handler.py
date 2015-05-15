@@ -39,10 +39,6 @@ class DXFSplineHandler(dxf_entity_handler.DXFEntityHandler):
 
         self.spline             = None
         self.splinePoint        = None
-        self.knots              = []
-        self.weights            = []
-        self.knotsCount         = 0
-        self.controlPointCount  = 0
 
 
     def getEntity(self):
@@ -52,9 +48,6 @@ class DXFSplineHandler(dxf_entity_handler.DXFEntityHandler):
         super(DXFSplineHandler, self).startEntity()
         self.spline = DXFSpline()
 
-    def endEntity(self):
-        pass
-
     def parseGroup(self, groupCode, value):
 
         if groupCode == self.GROUP_CODE_DEGREE:
@@ -63,8 +56,6 @@ class DXFSplineHandler(dxf_entity_handler.DXFEntityHandler):
         elif groupCode == self.GROUP_CODE_NUMBER_OF_CONTROL_POINTS or \
              groupCode == self.GROUP_CODE_NUMBER_OF_CONTROL_POINTS2:
 
-            # no need to allocate a weight array
-            self.controlPointCount = 0
             self.spline.setControlPointsSize(value.getInt())
 
         elif groupCode == self.GROUP_CODE_NUMBER_OF_FIT_POINTS:
@@ -73,25 +64,19 @@ class DXFSplineHandler(dxf_entity_handler.DXFEntityHandler):
         elif groupCode == self.GROUP_CODE_NUMBER_OF_NODES or \
              groupCode == self.GROUP_CODE_NUMBER_OF_NODES2:
 
-            # no need to allocate a knots array
-            self.knotsCount = 0
-            self.spline.setNodePointsSize(value.getInt())
+            self.spline.setKnotsSize(value.getInt())
 
         elif groupCode == self.GROUP_CODE_FIT_TOLERANCE:
             self.spline.setFitTolerance(value.getDouble())
 
         elif groupCode == self.GROUP_CODE_KNOTS:
-            #knots[knotsCount] = value.getDoubleValue();
-            #knotsCount++;
-            pass
+            self.spline.addKnot(value.getDouble())
 
         elif groupCode == self.GROUP_CODE_KNOT_TOLERANCE:
             self.spline.setKnotsTolerance(value.getDouble())
 
         elif groupCode == self.GROUP_CODE_WEIGHTS:
-            #weights[controlPointCount] = value.getDoubleValue();
-            #controlPointCount++;
-            pass
+            self.spline.addWeight(value.getDouble())
 
         elif groupCode == self.GROUP_CODE_CONTROL_POINT_TOLERANCE:
             self.spline.setControlPointTolerance(value.getDouble())
@@ -100,7 +85,7 @@ class DXFSplineHandler(dxf_entity_handler.DXFEntityHandler):
             self.splinePoint = SplinePoint()
             self.splinePoint.setType(SplinePoint.TYPE_FIT_POINT)
             self.splinePoint.setX(value.getDouble())
-            self.spline.addSplinePoint(self.splinePoint)
+            self.spline.addFitPoint(self.splinePoint)
 
         elif groupCode == self.GROUP_CODE_FIT_POINT_Y:
             self.splinePoint.setY(value.getDouble())
@@ -112,7 +97,7 @@ class DXFSplineHandler(dxf_entity_handler.DXFEntityHandler):
             self.splinePoint = SplinePoint()
             self.splinePoint.setType(SplinePoint.TYPE_CONTROL_POINT)
             self.splinePoint.setX(value.getDouble())
-            self.spline.addSplinePoint(self.splinePoint)
+            self.spline.addControlPoint(self.splinePoint)
 
         elif groupCode == self.GROUP_CODE_CONTROL_POINT_Y:
             self.splinePoint.setY(value.getDouble())
@@ -124,7 +109,7 @@ class DXFSplineHandler(dxf_entity_handler.DXFEntityHandler):
             self.splinePoint = SplinePoint()
             self.splinePoint.setType(SplinePoint.TYPE_START_TANGENT)
             self.splinePoint.setX(value.getDouble())
-            self.spline.addSplinePoint(self.splinePoint)
+            self.spline.addStartTangent(self.splinePoint)
 
         elif groupCode == self.GROUP_CODE_START_TANGENT_Y:
             self.splinePoint.setY(value.getDouble())
@@ -136,7 +121,7 @@ class DXFSplineHandler(dxf_entity_handler.DXFEntityHandler):
             self.splinePoint = SplinePoint()
             self.splinePoint.setType(SplinePoint.TYPE_END_TANGENT)
             self.splinePoint.setX(value.getDouble())
-            self.spline.addSplinePoint(self.splinePoint)
+            self.spline.addEndTangent(self.splinePoint)
 
         elif groupCode == self.GROUP_CODE_END_TANGENT_Y:
             self.splinePoint.setY(value.getDouble())
