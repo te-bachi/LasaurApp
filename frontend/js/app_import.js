@@ -86,7 +86,7 @@ $(document).ready(function(){
       $().uxmessage('notice', "parsing SVG ...");
     } else if (ext == '.dxf' || ext == '.DXF') {
       $().uxmessage('notice', "parsing DXF ...");
-      $().uxmessage('warning', "DXF import is limited to R14, lines, arcs, lwpolylines, and mm units");
+      $().uxmessage('warning', "DXF import is limited to LINE, ARC, CIRCLE, LWPOLYLINE, POLYLINE and SPLINE");
     } else if (ext == '.ngc' || ext == '.NGC') {
       $().uxmessage('notice', "parsing G-Code ...");
     }
