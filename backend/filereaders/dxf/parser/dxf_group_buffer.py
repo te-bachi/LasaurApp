@@ -9,7 +9,7 @@ from filereaders.dxf.dxf_value import DXFValue
 
 log = logging.getLogger(__name__)
 
-class DXFGroupBuffer:
+class DXFGroupBuffer(object):
 
     def __init__(self, buf):
         self.stringio = StringIO.StringIO(buf)
