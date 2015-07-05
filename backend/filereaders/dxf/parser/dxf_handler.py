@@ -22,6 +22,9 @@ class DXFHandler(object):
         """
         self.document = document
 
+    def getDocument(self):
+        return self.document
+
     def addHandler(self, handler):
         """
 

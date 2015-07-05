@@ -2,7 +2,10 @@
 __author__ = 'Andreas Bachmann <andreas.bachmann@fablabwinti.ch>'
 
 import dxf_section_handler
+import logging
 
+
+log = logging.getLogger(__name__)
 
 class DXFEntitiesSectionHandler(dxf_section_handler.DXFSectionHandler):
 
@@ -34,6 +37,7 @@ class DXFEntitiesSectionHandler(dxf_section_handler.DXFSectionHandler):
                 self.handler.startEntity()
                 self.parseIt = True
             except KeyError:
+                log.warning("Can't parse %s entity", value.getString())
                 self.parseIt = False
 
         elif self.parseIt:

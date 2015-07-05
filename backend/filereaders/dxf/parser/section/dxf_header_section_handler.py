@@ -40,11 +40,12 @@ class DXFHeaderSectionHandler(dxf_section_handler.DXFSectionHandler):
     def parseGroup(self, groupCode, value):
         if  groupCode == self.GROUP_CODE_HEADER_VARIABLE_START:
             self.parseIt = True
-            if value == DXFConstants.HEADER_VARIABLE_ACADVER:
+            if value.getString() == DXFConstants.HEADER_VARIABLE_ACADVER:
                 self.variable = self.document.header.version
             else:
                 self.parseIt = False
 
         elif self.parseIt:
-            if groupCode == DXFConstants.GROUP_CODE_PRIMARY_TEXT:
+            if groupCode == self.GROUP_CODE_PRIMARY_TEXT:
                 self.variable.setString(value)
+                pass

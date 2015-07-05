@@ -24,7 +24,8 @@ dxfstring = f.read()
 
 log.debug("Parse content")
 parser = filereaders.dxf.parser.dxf_parser.DXFParser()
-list = parser.parse(dxfstring)
+list = parser.parse(dxfstring, 0.1)
+print(parser.getDocument().getHeader().version.getVersion())
 
 
 log.debug("Close file")

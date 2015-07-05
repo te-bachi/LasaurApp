@@ -7,6 +7,7 @@ import logging
 
 log = logging.getLogger(__name__)
 
+# Ported from Kabeja Java-Library, Simon Mieth <simon.mieth@gmx.de>
 class DXFParser(dxf_handler.DXFHandler):
 
     GROUP_CODE_ENTITY_START     = 0
